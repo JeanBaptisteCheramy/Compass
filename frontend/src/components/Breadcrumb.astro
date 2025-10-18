@@ -1,0 +1,18 @@
+---
+export interface Props {
+  url: string;
+  previous: string;
+  title: string;
+}
+
+
+const { url, previous, title } = Astro.props;
+---
+
+<div class="mb-2">
+  <a href={url} class="text-slate-500 text-sm italic hover:text-indigo-500">
+    {previous}
+  </a>
+  <span class="text-indigo-900"> / </span>
+  <span class="text-slate-500 text-sm italic">{title}</span>
+</div>
