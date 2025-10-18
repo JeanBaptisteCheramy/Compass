@@ -3,12 +3,12 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articleApi, sectionApi, themeApi } from "../../lib/api";
 import type { Section } from "../../lib/pocketbase";
+
 interface SectionWithTheme {
   section: Section;
   themeId: string;
 }
 export async function getStaticPaths() {
-  // ✅ Déplace tout le code ICI, à l'intérieur de la fonction
   const themes = await themeApi.getAll();
   const allSections: any[] = [];
 
@@ -47,21 +47,18 @@ const articles = await articleApi.getBySection(section.id);
   <h3 class="text-slate-100 text-3xl text-center font-bold mb-6">
     {section.name}
   </h3>
-  <p class="text-slate-300 mb-8">{section.description}</p>
+  <p class="text-slate-300 text-center mb-8">{section.description}</p>
 
   <!-- Articles -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 gap-4">
     {
       articles.map((article) => (
-        <a
-          href={`/articles/${article.id}`}
-          class="bg-slate-800 hover:bg-slate-700 p-4 rounded-lg transition-colors"
-        >
-          <h3 class="text-slate-100 font-semibold mb-2">{article.title}</h3>
-          <p class="text-slate-400 text-sm line-clamp-3">
-            {article.content.substring(0, 100)}...
-          </p>
-        </a>
+        <div class="bg-slate-800 p-4 rounded-lg transition-colors">
+          <h4 class="text-slate-100 font-semibold mb-2">{article.title}</h4>
+          <div class="prose prose-invert">
+            <Fragment set:html={article.content} />
+          </div>{" "}
+        </div>
       ))
     }
   </div>
