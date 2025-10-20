@@ -18,6 +18,7 @@ const themesWithSections = await Promise.all(
     themesWithSections.map((theme) => (
       <Collapsible
         title={theme.name}
+        style="primary"
         imageUrl={getFileUrl(theme, theme.image)}
         imageAlt="Logo Docker"
       >

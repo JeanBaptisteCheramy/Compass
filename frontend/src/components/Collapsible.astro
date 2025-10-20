@@ -1,17 +1,32 @@
 ---
 export interface Props {
   title: string;
+  style: string;
   defaultOpen?: boolean;
   imageUrl?: string;
   imageAlt?: string;
 }
 
-const { title, defaultOpen = false, imageUrl, imageAlt } = Astro.props;
+const {
+  title,
+  style = "primary",
+  defaultOpen = false,
+  imageUrl,
+  imageAlt,
+} = Astro.props;
 const id = `collapsible-${Math.random().toString(36).substring(2, 9)}`;
+let globalStyle = "";
+switch (style) {
+  case "secondary":
+    globalStyle = "border-none bg-slate-500 hover:bg-indigo-900";
+    break;
+  default:
+    globalStyle = "border-indigo-500 bg-slate-950 hover:bg-indigo-900";
+}
 ---
 
 <div
-  class="border border-indigo-500 bg-slate-950 hover:bg-indigo-900 rounded-xl transition-colors duration-200"
+  class={`border ${globalStyle} rounded-xl transition-colors duration-200`}
   data-collapsible-container={id}
 >
   <button

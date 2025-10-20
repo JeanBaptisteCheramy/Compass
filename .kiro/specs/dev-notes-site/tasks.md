@@ -60,7 +60,7 @@
   - Implement breadcrumb navigation
   - _Requirements: 1.2, 6.4_
 
-- [ ] 4.4 Create section detail pages
+- [x] 4.4 Create section detail pages
 
   - Build dynamic section pages showing articles within section
   - Display article cards with titles and content previews

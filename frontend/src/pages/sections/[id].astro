@@ -1,5 +1,6 @@
 ---
 import Breadcrumb from "../../components/Breadcrumb.astro";
+import Collapsible from "../../components/Collapsible.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articleApi, sectionApi, themeApi } from "../../lib/api";
 import type { Section } from "../../lib/pocketbase";
@@ -53,12 +54,14 @@ const articles = await articleApi.getBySection(section.id);
   <div class="grid grid-cols-1 gap-4">
     {
       articles.map((article) => (
-        <div class="bg-slate-800 p-4 rounded-lg transition-colors">
-          <h4 class="text-slate-100 font-semibold mb-2">{article.title}</h4>
-          <div class="prose prose-invert">
-            <Fragment set:html={article.content} />
-          </div>{" "}
-        </div>
+        <Collapsible title={article.title} style="secondary">
+          <div class="p-4 rounded-lg transition-colors">
+            {/* <h4 class="text-slate-100 font-semibold mb-2">{article.title}</h4> */}
+            <div class="prose prose-invert ">
+              <Fragment set:html={article.content} />
+            </div>{" "}
+          </div>
+        </Collapsible>
       ))
     }
   </div>
