@@ -1,0 +1,41 @@
+---
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articleApi } from "../../lib/api";
+
+export async function getStaticPaths() {
+  const articles = await articleApi.getAll();
+
+  return articles.map((article) => ({
+    params: { id: article.id },
+    props: { articleId: article.id },
+  }));
+}
+
+const { articleId } = Astro.props;
+const article = await articleApi.getById(articleId);
+---
+
+<BaseLayout title={`${article.title} - Compass`}>
+  <Breadcrumb
+    items={[
+      { name: "Accueil", url: "/" },
+      {
+        name: article.expand?.section?.expand?.theme?.name || "Thème",
+        url: `/themes/${article.expand?.section?.theme}`,
+      },
+      {
+        name: article.expand?.section?.name || "Section",
+        url: `/sections/${article.expand?.section?.id}`,
+      },
+      { name: article.title }, // Pas d'URL car c'est la page actuelle
+    ]}
+  />
+  <div class="p-4 rounded-lg transition-colors">
+    <h4>{article.title}</h4>
+
+    <div class="prose prose-invert">
+      <Fragment set:html={article.content} />
+    </div>
+  </div>
+</BaseLayout>

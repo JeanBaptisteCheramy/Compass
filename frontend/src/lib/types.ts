@@ -19,7 +19,7 @@ export interface SectionFormData {
 
 export interface ArticleFormData {
   title: string; // Titre de l'article
-  content: string; // Contenu markdown
+  content: string; // Contenu en Markdown brut (pas de HTML)
   section: string; // ID de la section parent
   image?: File; // Fichier image (optionnel)
 }

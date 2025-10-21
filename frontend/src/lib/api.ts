@@ -136,6 +136,16 @@ export const articleApi = {
     });
   },
 
+  // Retourne tous les articles
+  async getAll(): Promise<Article[]> {
+    return handleApiCall(async () => {
+      return await pb.collection(Collections.ARTICLES).getFullList<Article>({
+        sort: "title",
+      });
+    });
+  },
+
+
   // Recherche dans les articles (titre et contenu)
   async search(query: string): Promise<Article[]> {
     return handleApiCall(async () => {

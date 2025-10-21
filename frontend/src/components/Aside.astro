@@ -25,7 +25,7 @@ const themesWithSections = await Promise.all(
         <div class="flex flex-col p-2">
           {theme.sections.map((section) => (
             <a
-              href="/"
+              href={`/sections/${section.id}`}
               class="text-gray-50 text-sm hover:text-indigo-200 transition-all"
             >
               {section.name}
