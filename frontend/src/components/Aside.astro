@@ -4,6 +4,10 @@ import { getCollection } from "astro:content";
 
 const articles = await getCollection("articles");
 const themes = [...new Set(articles.map((a) => a.slug.split("/")[0]))].sort();
+
+function makeTitle(str:string){
+    return (str.charAt(0).toUpperCase() + str.slice(1)).replaceAll('-',' ')
+}
 ---
 
 <aside
@@ -11,7 +15,7 @@ const themes = [...new Set(articles.map((a) => a.slug.split("/")[0]))].sort();
 >
   {
     themes.map((theme) => (
-      <Collapsible title={theme} style="primary">
+      <Collapsible title={makeTitle(theme)} style="primary">
         <div class="flex flex-col gap-1">
           {articles
             .filter((a) => a.slug.startsWith(theme + "/"))
