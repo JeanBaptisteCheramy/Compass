@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const themes = await getCollection("themes");
+---
+<BaseLayout>
+    <h1 class="text-slate-100 text-3xl text-center font-bold mb-6">
+        Thèmes
+    </h1>
+
+<ul>
+    {themes.map((theme) => (
+            <li>
+                <a href={`/themes/${theme.slug}`}>
+                    {theme.data.title}
+                </a>
+            </li>
+    ))}
+</ul>
+
+</BaseLayout>

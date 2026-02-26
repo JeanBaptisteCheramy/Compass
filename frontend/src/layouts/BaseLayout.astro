@@ -3,17 +3,13 @@ import Aside from "../components/Aside.astro";
 import Navigation from "../components/Navigation.astro";
 import "../styles/global.css";
 
-export interface Props {
-  title: string;
-}
 
-const { title } = Astro.props;
 ---
 
 <html lang="fr" class="h-full">
   <head>
     <meta charset="utf-8" />
-    <title>{title}</title>
+    <title>Compass</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
