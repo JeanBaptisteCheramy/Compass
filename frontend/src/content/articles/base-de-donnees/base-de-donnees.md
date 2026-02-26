@@ -1,7 +1,6 @@
 ---
 title: "Base de données"
 section: "Définitions"
-theme: "Base de données"
 ---
 
 ## Base de donnée

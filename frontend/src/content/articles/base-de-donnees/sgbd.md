@@ -1,7 +1,6 @@
 ---
 title: "SGBD"
 section: "Définitions"
-theme: "Base de données"
 ---
 
 ## SGBD

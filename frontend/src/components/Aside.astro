@@ -2,7 +2,8 @@
 import Collapsible from "./Collapsible.astro";
 import { getCollection } from "astro:content";
 
-const themes = await getCollection("themes");
+const articles = await getCollection("articles");
+const themes = [...new Set(articles.map((a) => a.slug.split("/")[0]))].sort();
 ---
 
 <aside
@@ -10,11 +11,19 @@ const themes = await getCollection("themes");
 >
   {
     themes.map((theme) => (
-      <Collapsible
-        title={theme.data.title}
-        style="primary"
-        imageAlt={theme.data.title}
-      >
+      <Collapsible title={theme} style="primary">
+        <div class="flex flex-col gap-1">
+          {articles
+            .filter((a) => a.slug.startsWith(theme + "/"))
+            .map((article) => (
+              <a
+                href={`/articles/${article.slug}`}
+                class="text-gray-50 text-sm hover:text-indigo-200 transition-all"
+              >
+                {article.data.title}
+              </a>
+            ))}
+        </div>
       </Collapsible>
     ))
   }

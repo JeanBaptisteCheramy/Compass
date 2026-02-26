@@ -4,41 +4,35 @@ import Breadcrumb from "../../components/Breadcrumb.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const themes = await getCollection("themes");
+  const articles = await getCollection("articles");
+  const themes = [...new Set(articles.map((a) => a.slug.split("/")[0]))];
+
   return themes.map((theme) => ({
-    params: { slug: theme.slug },
-    props: { theme },
+    params: { slug: theme },
+    props: {
+      themeArticles: articles.filter((a) => a.slug.startsWith(theme + "/")),
+    },
   }));
 }
 
-const { theme } = Astro.props;
+const { slug } = Astro.params;
+const { themeArticles } = Astro.props;
 
-const allArticles = await getCollection("articles");
-const articles = allArticles.filter((a) =>
-  a.slug.startsWith(theme.slug + "/")
-);
-
-// Grouper les articles par section
-const sections = articles.reduce(
+const sections = themeArticles.reduce(
   (acc, article) => {
     const section = article.data.section ?? "Non classé";
     if (!acc[section]) acc[section] = [];
     acc[section].push(article);
     return acc;
   },
-  {} as Record<string, typeof articles>
+  {} as Record<string, typeof themeArticles>
 );
 ---
 
-<BaseLayout title={`${theme.data.title} - Compass`}>
-  <Breadcrumb items={[{ name: "Accueil", url: "/" }, { name: theme.data.title }]} />
+<BaseLayout title={`${slug} - Compass`}>
+  <Breadcrumb items={[{ name: "Accueil", url: "/" }, { name: slug }]} />
 
-  <h1 class="text-slate-100 text-3xl text-center font-bold mb-6">
-    {theme.data.title}
-  </h1>
-  {theme.data.description && (
-    <p class="text-slate-300 text-center mb-8">{theme.data.description}</p>
-  )}
+  <h1 class="text-slate-100 text-3xl text-center font-bold mb-6">{slug}</h1>
 
   {Object.entries(sections).map(([sectionName, sectionArticles]) => (
     <div class="mb-8">
