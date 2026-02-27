@@ -28,11 +28,13 @@ switch (style) {
 <div
   class={`border ${globalStyle} rounded-xl transition-colors duration-200`}
   data-collapsible-container={id}
+  style={defaultOpen ? "background-color: rgb(49 46 129);" : ""}
 >
   <button
     type="button"
-    class="flex font-sans w-full items-center justify-between p-2 text-left hover:bg-indigo-900 focus:outline-none transition-colors duration-200 rounded-xl"
+    class={`flex font-sans w-full items-center justify-between p-2 text-left hover:bg-indigo-900 focus:outline-none transition-colors duration-200 ${defaultOpen ? "rounded-t-xl" : "rounded-xl"}`}
     data-collapsible-trigger={id}
+    style={defaultOpen ? "background-color: rgb(49 46 129);" : ""}
   >
     <div class="flex items-center gap-3">
       {
@@ -51,6 +53,7 @@ switch (style) {
 
     <svg
       class="ml-3 h-5 w-5 text-gray-50 transition-transform duration-200"
+      style={defaultOpen ? "transform: rotate(180deg);" : ""}
       data-collapsible-icon={id}
       fill="none"
       viewBox="0 0 24 24"
