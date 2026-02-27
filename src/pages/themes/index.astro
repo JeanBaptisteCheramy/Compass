@@ -11,7 +11,7 @@ const themes = [...new Set(articles.map((a) => a.slug.split("/")[0]))].sort();
   <ul>
     {themes.map((theme) => (
       <li>
-        <a href={`/themes/${theme}`}>{theme}</a>
+        <a href={`${import.meta.env.BASE_URL}themes/${theme}`}>{theme}</a>
       </li>
     ))}
   </ul>
