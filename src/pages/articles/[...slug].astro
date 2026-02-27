@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await article.render();
 
-// récupérer theme depuis dossier
+// récupérer theme depuis dossier //
 const theme = article.slug.split("/")[0];
 ---
 
