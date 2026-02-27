@@ -23,7 +23,7 @@ const theme = article.slug.split("/")[0];
     <Breadcrumb
             items={[
                 { name: "Accueil", url: import.meta.env.BASE_URL },
-                { name: theme, url: `${import.meta.env.BASE_URL}themes/${theme}` },
+                { name: theme, url: `${import.meta.env.BASE_URL}/themes/${theme}` },
                 { name: article.data.title },
             ]}
     />

@@ -40,7 +40,7 @@ const sections = themeArticles.reduce(
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sectionArticles.map((article) => (
           <a
-            href={`${import.meta.env.BASE_URL}articles/${article.slug}`}
+            href={`${import.meta.env.BASE_URL}/articles/${article.slug}`}
             class="bg-slate-800 hover:bg-slate-700 font-sans p-4 rounded-lg transition-colors"
           >
             <h3 class="text-slate-100 font-sans font-semibold">
