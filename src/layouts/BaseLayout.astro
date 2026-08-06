@@ -9,6 +9,32 @@ import "../styles/global.css";
 <html lang="fr" class="h-full">
   <head>
     <meta charset="utf-8" />
+
+    {/*
+      Content Security Policy — defense en profondeur contre les injections
+      de code (XSS, OWASP A03). GitHub Pages ne permettant pas de definir
+      d'en-tetes HTTP, la politique est declaree par balise <meta>, placee
+      en tete du <head> car elle ne s'applique qu'aux ressources rencontrees
+      apres elle.
+
+      script-src 'self' : aucun script inline n'est tolere. C'est possible
+      grace a `assetsInlineLimit: 0` dans astro.config.mjs, qui force Astro
+      a externaliser tout le JavaScript.
+
+      style-src 'unsafe-inline' : concession necessaire. Shiki, le moteur de
+      coloration syntaxique d'Astro, produit des milliers d'attributs
+      `style="color:#..."`, que les hashes CSP ne peuvent pas couvrir.
+
+      frame-ancestors est volontairement absent : cette directive est ignoree
+      lorsqu'elle est delivree par <meta>, elle exige un en-tete HTTP.
+    */}
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <title>Compass</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>

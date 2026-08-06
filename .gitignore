@@ -6,3 +6,5 @@ dist/
 .claude/
 .kiro/
 .vscode/
+# Un seul gestionnaire de paquets : pnpm
+package-lock.json

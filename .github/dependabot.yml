@@ -1,0 +1,27 @@
+version: 2
+
+updates:
+  # Veille automatisee sur les dependances applicatives.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # Regroupe les montees de version mineures et correctives
+      # pour limiter le bruit de pull requests.
+      dependances-mineures:
+        update-types:
+          - minor
+          - patch
+    commit-message:
+      prefix: "deps"
+
+  # Veille sur les actions GitHub elles-memes : Dependabot met a jour
+  # les SHA epingles tout en conservant l'epinglage.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"
