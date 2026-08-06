@@ -71,17 +71,19 @@ jobs:
       - name: Generation du site statique
         run: pnpm build
 
-      # L'artefact n'est televerse que pour une mise en production reelle.
+      # L'artefact n'est televerse que pour une mise en production reelle,
+      # donc jamais depuis une pull request.
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         with:
           path: dist
 
   deploy:
     name: Mise en production
     needs: build
-    # Le deploiement n'a jamais lieu depuis une pull request.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Le deploiement n'a jamais lieu depuis une pull request, mais reste
+    # possible sur un push vers main comme sur un declenchement manuel.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       pages: write      # publication sur GitHub Pages
