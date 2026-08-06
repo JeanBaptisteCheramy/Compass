@@ -5,16 +5,22 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # Permet de relancer manuellement un deploiement depuis l'onglet Actions,
+  # sans avoir a produire un commit.
+  workflow_dispatch:
 
 # Moindre privilege : par defaut le GITHUB_TOKEN n'a qu'un acces en lecture.
 # Chaque job reouvre uniquement les droits dont il a besoin.
 permissions:
   contents: read
 
-# Une seule mise en production a la fois ; les runs de PR obsoletes sont annules.
+# Une seule mise en production a la fois. Les runs obsoletes sont annules :
+# le site etant integralement regenere a chaque build, seul le dernier commit
+# a un interet. Sans cela, une serie de fusions rapprochees empile les
+# deploiements Pages et les fait expirer sur le timeout de deploy-pages.
 concurrency:
   group: pages-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: true
 
 jobs:
   quality:
