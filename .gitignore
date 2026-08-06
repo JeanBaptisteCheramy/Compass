@@ -8,3 +8,8 @@ dist/
 .vscode/
 # Un seul gestionnaire de paquets : pnpm
 package-lock.json
+
+# Documents du dossier professionnel, hors perimetre du depot
+*.docx
+~$*.docx
+compass-cicd.md
